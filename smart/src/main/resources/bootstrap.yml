@@ -1,0 +1,97 @@
+# spring cloud 首先加载该配置， 主要配置 配置服务器地址等 以及 profile
+# 默认dev 激活
+# 需要在 nacos 上建一个 ${spring.application.name}-${spring.profiles.active}.yaml 的配置
+spring:
+  application: &appinfo
+    name: smart-server
+    desc:
+    version: 1.0.0
+  profiles:
+    active: test
+
+---
+# 开发环境加载
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848 # 可以改成本地的nacos 服务器
+        file-extension: yaml
+      discovery:
+        server-addr: localhost:8848
+        register-enabled: true
+        metadata:
+          name: ${spring.application.name}
+          desc: ${spring.application.desc}
+          version: ${spring.application.version}
+    config:
+      override-none: true  #使用本地配置
+---
+# 测试环境
+spring:
+  profiles: test
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.107.172.13:8848
+        file-extension: yaml
+      discovery:
+        server-addr: 47.107.172.13:8848
+        register-enabled: true
+        metadata:
+          name: ${spring.application.name}
+          desc: ${spring.application.desc}
+          version: ${spring.application.version}
+
+---
+# 演示环境
+spring:
+  profiles: demo
+  cloud:
+    nacos:
+      config:
+        server-addr: ${CONFIG-SERVER-ADDR}
+        file-extension: yaml
+      discovery:
+        server-addr: ${CONFIG-SERVER-ADDR}
+        register-enabled: true
+        metadata:
+          name: ${spring.application.name}
+          desc: ${spring.application.desc}
+          version: ${spring.application.version}
+
+---
+# 正式环境
+spring:
+  profiles: prod
+  cloud:
+    nacos:
+      config:
+        server-addr: ${CONFIG-SERVER-ADDR} # 通过环境变量加载
+        file-extension: yaml
+      discovery:
+        server-addr: ${CONFIG-SERVER-ADDR}
+        register-enabled: true
+        metadata:
+          name: ${spring.application.name}
+          desc: ${spring.application.desc}
+          version: ${spring.application.version}
+
+
+---
+# 独立启动
+spring:
+  profiles: standalone
+  autoconfigure:
+    exclude: org.springframework.cloud.alibaba.nacos.NacosConfigAutoConfiguration
+  cloud:
+    nacos:
+      discovery:
+        register-enabled: false
+      config:
+        server-addr: localhost:8848 # 暂时无法关闭
+    service-registry:
+      auto-registration:
+        enabled: false
+

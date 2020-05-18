@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.107.172.13:8848
+      discovery:
+        server-addr: 47.107.172.13:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: smart
+        uri: lb://smart-service
+        predicates:
+        - Path=/smart/**

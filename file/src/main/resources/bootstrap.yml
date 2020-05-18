@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: file-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.107.172.13:8848
+      discovery:
+        server-addr: 47.107.172.13:8848
