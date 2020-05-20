@@ -2,6 +2,7 @@ package com.wang.smart.controller;
 
 import com.wang.core.common.ErrorCodes;
 import com.wang.core.common.ResultCode;
+import com.wang.smart.service.FaceService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
