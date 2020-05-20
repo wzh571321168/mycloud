@@ -17,8 +17,6 @@ public class RtspAddress implements Serializable {
 
     private String status;
 
-    @Column(name = "server_name")
-    private String serverName;
 
     @Column(name = "client_id")
     private String clientId;
@@ -44,15 +42,6 @@ public class RtspAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
-
-    public String getServerName() {
-        return serverName;
-    }
-
-    public void setServerName(String serverName) {
-        this.serverName = serverName;
-    }
 
     /**
      * @return id
