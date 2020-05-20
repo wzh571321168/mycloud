@@ -1,5 +1,6 @@
 package com.wang.smart.config;
 
+import com.alibaba.fastjson.JSONObject;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.context.annotation.Bean;
@@ -27,12 +28,13 @@ public class RequestInterceptorConfig {
 
 
             private CharSequence route(RequestTemplate template) {
-                ///template.
+                String s = new String(template.body());
+                JSONObject jsonObject = JSONObject.parseObject(s);
+                return jsonObject.get("clientId").toString();
                 // TODO 你的路由算法在这里
                 /*ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
                         .getRequestAttributes();
                 HttpServletRequest request = attributes.getRequest();*/
-                return "000";
             }
         };
     }

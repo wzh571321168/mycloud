@@ -45,7 +45,12 @@ public class TestController {
     }
     @RequestMapping("test")
     public String test(){
-        return testService.test();
+        Balance balance=new Balance();
+        balance.setDiamond(2);
+        balance.setId(1);
+        balance.setMessage("2432");
+        balance.setTicket(4);
+        return testService.test(balance);
     }
 
 }

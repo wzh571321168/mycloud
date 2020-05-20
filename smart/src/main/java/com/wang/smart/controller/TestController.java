@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("smart")
 public class TestController {
     @RequestMapping("test")
-    public String test(){
+    public String test(String str){
         return "smart-server is started!";
     }
 }
