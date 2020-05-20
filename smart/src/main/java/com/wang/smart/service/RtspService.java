@@ -33,7 +33,7 @@ public class RtspService  {
             map.put("rtspUrl",rtspAddress.getRtspAddress());
             MonitorVo monitorVo=new MonitorVo();
             monitorVo.setAddress(rtspAddress.getRtspAddress());
-            monitorVo.setClinetNum(clientServerMapper.selectByPrimaryKey(rtspAddress.getClientId()).getClientNum());
+            monitorVo.setClientNum(clientServerMapper.selectByPrimaryKey(rtspAddress.getClientId()).getClientNum());
             if(StringUtils.equals(type,"done")){
                 streamService.pushDone(monitorVo);
             }else {

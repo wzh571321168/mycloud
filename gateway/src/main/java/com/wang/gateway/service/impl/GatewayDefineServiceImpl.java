@@ -12,11 +12,13 @@ import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.List;
 
+@Service
 public class GatewayDefineServiceImpl implements GatewayDefineService {
     @Autowired
     private GatewayDefineMapper gatewayDefineMapper;

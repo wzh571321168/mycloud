@@ -30,7 +30,7 @@ public class AuthController {
 
     private ObjectMapper objectMapper;
 
-    @Value("${org.my.jwt.effective-time}")
+    //@Value("${org.my.jwt.effective-time}")
     private String effectiveTime;
 
     public AuthController(ObjectMapper objectMapper) {

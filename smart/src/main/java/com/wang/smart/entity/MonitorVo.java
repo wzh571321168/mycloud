@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class MonitorVo {
     private String address;
-    private String clinetNum;
+    private String clientNum;
 }

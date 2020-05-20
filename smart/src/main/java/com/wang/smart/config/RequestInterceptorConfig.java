@@ -31,7 +31,7 @@ public class RequestInterceptorConfig {
             private CharSequence route(RequestTemplate template) {
                 String s = new String(template.body());
                 JSONObject jsonObject = JSONObject.parseObject(s);
-                return jsonObject.get("clientId").toString();
+                return jsonObject.get("clientNum").toString();
             }
         };
     }
