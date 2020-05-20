@@ -1,5 +1,6 @@
 package com.wang.smart.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.github.pagehelper.Page;
 import com.wang.core.common.ResultCode;
 import com.wang.smart.common.PageRequest;
@@ -27,6 +28,7 @@ public class RtspController {
     }
     @PostMapping("add")
     public ResultCode add(RtspAddress rtspAddress){
+        rtspAddress.setUid(UUID.randomUUID().toString());
         rtspService.add(rtspAddress);
         return ResultCode.success(null);
     }

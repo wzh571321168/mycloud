@@ -1,4 +1,4 @@
-package com.wang.smart.config;
+package com.wang.test1.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

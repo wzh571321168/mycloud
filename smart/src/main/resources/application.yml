@@ -29,4 +29,10 @@ logging:
   level:
     root: info
     com.wang.analyze.mapper: debug
+    com:
+      alibaba:
+        nacos:
+          client:
+            naming: error
+
 #  file: logs/waterindex.log

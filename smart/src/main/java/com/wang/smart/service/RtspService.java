@@ -1,7 +1,10 @@
 package com.wang.smart.service;
 
 import cn.hutool.http.HttpUtil;
+import com.wang.smart.api.StreamService;
+import com.wang.smart.dao.ClientServerMapper;
 import com.wang.smart.dao.RtspAddressMapper;
+import com.wang.smart.entity.MonitorVo;
 import com.wang.smart.entity.RtspAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,10 @@ import java.util.Map;
 public class RtspService  {
     @Autowired
     private RtspAddressMapper rtspAddressMapper;
+    @Autowired
+    private ClientServerMapper clientServerMapper;
+    @Autowired
+    private StreamService streamService;
 
     public void push(String server, String uid) {
         //查询数据库是否存在该rtsp地址，如果存在，调用推流客户端服务，不存在，不处理
@@ -23,7 +30,10 @@ public class RtspService  {
         if(rtspAddress!=null){
             Map<String,Object> map=new HashMap<>();
             map.put("rtspUrl",rtspAddress.getRtspAddress());
-            //String post = HttpUtil.post("localhost:8084/" + rtspAddress.getServerName() + "/push", map);
+            MonitorVo monitorVo=new MonitorVo();
+            monitorVo.setAddress(rtspAddress.getRtspAddress());
+            monitorVo.setClinetNum(clientServerMapper.selectByPrimaryKey(rtspAddress.getClientId()).getClientNum());
+            streamService.push(monitorVo);
         }
 
     }

@@ -11,8 +11,8 @@ public class ClientServer implements Serializable {
     @Column(name = "client_name")
     private String clientName;
 
-    @Column(name = "client_server_name")
-    private String clientServerName;
+    @Column(name = "client_num")
+    private String clientNum;
 
     private static final long serialVersionUID = 1L;
 
@@ -44,17 +44,11 @@ public class ClientServer implements Serializable {
         this.clientName = clientName;
     }
 
-    /**
-     * @return client_server_name
-     */
-    public String getClientServerName() {
-        return clientServerName;
+    public String getClientNum() {
+        return clientNum;
     }
 
-    /**
-     * @param clientServerName
-     */
-    public void setClientServerName(String clientServerName) {
-        this.clientServerName = clientServerName;
+    public void setClientNum(String clientNum) {
+        this.clientNum = clientNum;
     }
 }
