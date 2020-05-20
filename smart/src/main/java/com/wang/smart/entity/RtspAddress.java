@@ -23,6 +23,17 @@ public class RtspAddress implements Serializable {
     @Column(name = "client_id")
     private String clientId;
 
+    @Column(name = "analyze_type")
+    private String analyzeType;
+
+    public String getAnalyzeType() {
+        return analyzeType;
+    }
+
+    public void setAnalyzeType(String analyzeType) {
+        this.analyzeType = analyzeType;
+    }
+
     public String getClientId() {
         return clientId;
     }

@@ -27,4 +27,20 @@ public class RtspService  {
         }
 
     }
+
+    public void list() {
+        rtspAddressMapper.selectAll();
+    }
+
+    public void add(RtspAddress rtspAddress) {
+        rtspAddressMapper.insertSelective(rtspAddress);
+    }
+
+    public void edit(RtspAddress rtspAddress) {
+        rtspAddressMapper.updateByPrimaryKeySelective(rtspAddress);
+    }
+
+    public void delete(Integer id) {
+        rtspAddressMapper.deleteByPrimaryKey(id);
+    }
 }
