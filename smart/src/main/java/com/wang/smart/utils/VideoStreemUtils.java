@@ -24,7 +24,7 @@ public class VideoStreemUtils {
      * @throws InterruptedException
      * @throws org.bytedeco.javacv.FrameRecorder.Exception
      */
-    public static void recordCamera(String outputFile, double frameRate)
+   /* public static void recordCamera(String outputFile, double frameRate)
             throws Exception, InterruptedException, org.bytedeco.javacv.FrameRecorder.Exception {
         Loader.load(opencv_objdetect.class);
         FrameGrabber grabber = FrameGrabber.createDefault(1);//本机摄像头默认0，这里使用javacv的抓取器，至于使用的是ffmpeg还是opencv，请自行查看源码
@@ -68,13 +68,13 @@ public class VideoStreemUtils {
 
     public static void main(String[] args) throws Exception, InterruptedException, org.bytedeco.javacv.FrameRecorder.Exception {
         recordCamera("output.mp4",25);
-    }
+    }*/
 
-    /*static boolean exit  = false;
+    static boolean exit  = false;
     public static void main(String[] args) throws Exception {
         System.out.println("start...");
-        String rtmpPath = "rtmp://127.0.0.1:1935/stream/test";
-        String rtspPath = "rtsp://admin:admin88888@192.168.100.200:554/h264/ch34/sub/av_stream";
+        String rtmpPath = "rtmp://127.0.0.1:1935/stream/monitor";
+        String rtspPath = "rtsp://127.0.0.1:554/test";
 
         int audioRecord =0; // 0 = 不录制，1=录制
         boolean saveVideo = false;
@@ -83,10 +83,10 @@ public class VideoStreemUtils {
         System.out.println("end...");
     }
 
-    public static void push(String rtmpPath,String rtspPath,int audioRecord,boolean saveVideo ) throws Exception  {
+        public static void push(String rtmpPath,String rtspPath,int audioRecord,boolean saveVideo ) throws Exception  {
         // 使用rtsp的时候需要使用 FFmpegFrameGrabber，不能再用 FrameGrabber
         int width = 640,height = 480;
-        OpenCVFrameGrabber grabber = OpenCVFrameGrabber .createDefault(0);
+        OpenCVFrameGrabber grabber = OpenCVFrameGrabber .createDefault(rtspPath);
         grabber.setOption("rtsp_transport", "tcp"); // 使用tcp的方式，不然会丢包很严重
 
         grabber.setImageWidth(width);
@@ -108,9 +108,10 @@ public class VideoStreemUtils {
         //OpenCVFrameConverter.ToIplImage conveter = new OpenCVFrameConverter.ToIplImage();
         System.out.println("all start!!");
         int count = 0;
-        while(!exit){
+        Frame frame;
+        while(!exit&&( frame = grabber.grab())!=null){
             count++;
-            Frame frame = grabber.grab();
+            ;
             if(frame == null){
                 continue;
             }
@@ -125,7 +126,7 @@ public class VideoStreemUtils {
         grabber.release();
         recorder.stop();
         recorder.release();
-    }*/
+    }
     static OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
     static boolean flag=false;
    /* public static void main(String[] args)  {

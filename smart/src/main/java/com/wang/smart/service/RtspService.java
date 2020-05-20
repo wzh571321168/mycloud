@@ -34,6 +34,7 @@ public class RtspService  {
             MonitorVo monitorVo=new MonitorVo();
             monitorVo.setAddress(rtspAddress.getRtspAddress());
             monitorVo.setClientNum(clientServerMapper.selectByPrimaryKey(rtspAddress.getClientId()).getClientNum());
+            monitorVo.setRtmpServer("127.0.0.1:1935");
             if(StringUtils.equals(type,"done")){
                 streamService.pushDone(monitorVo);
             }else {

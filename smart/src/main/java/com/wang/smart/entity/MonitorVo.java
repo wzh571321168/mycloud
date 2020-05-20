@@ -6,4 +6,5 @@ import lombok.Data;
 public class MonitorVo {
     private String address;
     private String clientNum;
+    private String rtmpServer;
 }
