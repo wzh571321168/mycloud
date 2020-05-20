@@ -6,6 +6,7 @@ import com.wang.smart.dao.ClientServerMapper;
 import com.wang.smart.dao.RtspAddressMapper;
 import com.wang.smart.entity.MonitorVo;
 import com.wang.smart.entity.RtspAddress;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class RtspService  {
     @Autowired
     private StreamService streamService;
 
-    public void push(String server, String uid) {
+    public void push( String uid,String type) {
         //查询数据库是否存在该rtsp地址，如果存在，调用推流客户端服务，不存在，不处理
         RtspAddress rtspAddress=new RtspAddress();
         rtspAddress.setStatus("Y");
@@ -33,7 +34,11 @@ public class RtspService  {
             MonitorVo monitorVo=new MonitorVo();
             monitorVo.setAddress(rtspAddress.getRtspAddress());
             monitorVo.setClinetNum(clientServerMapper.selectByPrimaryKey(rtspAddress.getClientId()).getClientNum());
-            streamService.push(monitorVo);
+            if(StringUtils.equals(type,"done")){
+                streamService.pushDone(monitorVo);
+            }else {
+                streamService.push(monitorVo);
+            }
         }
 
     }
@@ -53,4 +58,6 @@ public class RtspService  {
     public void delete(Integer id) {
         rtspAddressMapper.deleteByPrimaryKey(id);
     }
+
+
 }

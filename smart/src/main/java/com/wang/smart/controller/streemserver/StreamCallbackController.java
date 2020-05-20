@@ -24,14 +24,24 @@ public class StreamCallbackController {
 
     /**
      * 播放回调
-     * @param server
      * @param uid
      * @return
      */
     @RequestMapping("on_play")
-    public void onPlay(@RequestParam("server") String server,@RequestParam("uid") String uid){
-        if(StringUtils.isNotBlank(server)&&StringUtils.isNoneBlank(uid)){
-            rtspService.push(server,uid);
+    public void onPlay(@RequestParam("uid") String uid){
+        if(StringUtils.isNoneBlank(uid)){
+            rtspService.push(uid,"do");
+        }
+    }
+
+    /**
+     * 播放关闭回调
+     * @param uid
+     */
+    @RequestMapping("on_play_done")
+    public void onPlayDone(@RequestParam("uid") String uid){
+        if(StringUtils.isNoneBlank(uid)){
+            rtspService.push(uid,"done");
         }
     }
 }
