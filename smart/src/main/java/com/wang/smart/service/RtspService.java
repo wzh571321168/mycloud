@@ -23,7 +23,7 @@ public class RtspService  {
         if(rtspAddress!=null){
             Map<String,Object> map=new HashMap<>();
             map.put("rtspUrl",rtspAddress.getRtspAddress());
-            String post = HttpUtil.post("localhost:8084/" + rtspAddress.getServerName() + "/push", map);
+            //String post = HttpUtil.post("localhost:8084/" + rtspAddress.getServerName() + "/push", map);
         }
 
     }
