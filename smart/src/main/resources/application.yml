@@ -24,6 +24,8 @@ server:
     context-path: /smart-server
   port: 5555
 
+file:
+  path: f://test
 
 logging:
   level:

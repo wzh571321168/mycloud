@@ -53,6 +53,6 @@
             &lt;!&ndash; mysql 配置 &ndash;&gt;
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>-->
-        <table tableName="client_server" domainObjectName="ClientServer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="face_feature" domainObjectName="FaceFeature" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
     </context>
 </generatorConfiguration>

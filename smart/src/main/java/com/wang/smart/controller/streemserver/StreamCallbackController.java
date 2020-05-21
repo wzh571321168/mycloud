@@ -2,10 +2,19 @@ package com.wang.smart.controller.streemserver;
 
 import com.wang.smart.service.RtspService;
 import org.apache.commons.lang3.StringUtils;
+import org.bytedeco.javacpp.opencv_core;
+import org.opencv.face.EigenFaceRecognizer;
+import org.opencv.face.FaceRecognizer;
+import org.opencv.face.FisherFaceRecognizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.nio.Buffer;
+import java.nio.IntBuffer;
+
+import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 
 //http://127.0.0.1:5555/camera_monitor/on_publish;
 @RestController
@@ -31,6 +40,8 @@ public class StreamCallbackController {
     public void onPlay(@RequestParam("uid") String uid){
         if(StringUtils.isNoneBlank(uid)){
             rtspService.push(uid,"do");
+            EigenFaceRecognizer eigenFaceRecognizer = EigenFaceRecognizer.create();
+
         }
     }
 
