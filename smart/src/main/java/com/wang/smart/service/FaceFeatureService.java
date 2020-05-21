@@ -11,6 +11,7 @@ import com.wang.smart.utils.MatUtils;
 import org.bytedeco.javacpp.opencv_core.*;
 import org.bytedeco.javacpp.opencv_face.*;
 
+import org.bytedeco.javacpp.opencv_imgcodecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,11 +52,44 @@ public class FaceFeatureService {
     }
 
     public synchronized RestResult add(String name, String pic) {
-        try {
+        String picPath=filePath+name+"-"+System.currentTimeMillis()+".jpg";
+        Base64Utils.generateImage2(pic,picPath);
+        Integer insert = insert(name, picPath);
+        List<FaceFeature> faceFeatures = faceFeatureMapper.selectAll();
+        if(faceFeatures!=null&&faceFeatures.size()>=2){
+            MatVector matVector=new MatVector(faceFeatures.size());
+            Mat lables = new Mat(faceFeatures.size(),1,CV_32SC1);//对应20个标签值
+            IntBuffer lablesBuf = lables.createBuffer();
+            //System.out.println(faceFeatures.size());
+            for(int i=0;i<faceFeatures.size();i++){
+                lablesBuf.put(i,faceFeatures.get(i).getId());
+               // System.out.println(i);
+            }
+            for(int i=0;i<faceFeatures.size();i++){
+                Mat imread=null;
+                try {
+                    imread = MatUtils.imagePath2Mat(faceFeatures.get(i).getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                List<Mat> matList = faceUtils.detectFace(imread);
+                matVector.put(i,matList.get(0));
+            }
+            //训练
+            fr.train(matVector,lables);
+            //保存训练结果
+            fr.save("smart/src/main/resources/facefeature/FisherRecognize.xml");
+
+            //读取训练出的xml文件
+            fr.read("smart/src/main/resources/facefeature/FisherRecognize.xml");
+            //设置阈值，阈值为0则任何人都不认识，阈值特别大的时候任何人都认识（返回和样本最相似的结果，永远不会返回-1）
+            //前面忘记说了，检测返回-1代表不能和训练结果匹配
+            fr.setThreshold(3000.0);
+        }
+       /* try {
             Mat mat = MatUtils.base642Mat(pic);
             List<Mat> matList = faceUtils.detectFace(mat);
             if(matList!=null&&matList.size()==1){
-                List<FaceFeature> faceFeatures = faceFeatureMapper.selectAll();
 
                 if(faceFeatures!=null&&faceFeatures.size()>0){
 
@@ -68,19 +102,10 @@ public class FaceFeatureService {
                         //写入标签值，前十个为1，后十个为2
                         IntBuffer lablesBuf = lables.createBuffer();
                         lablesBuf.put(0, 0);
-                        lablesBuf.put(1, 1);
+                        lablesBuf.put(1, id);
                         images.put(0,matList.get(0));
                         images.put(1,matList.get(0));
-                        //训练
-                        fr.train(images, lables);
-                        //保存训练结果
-                        fr.save("FisherRecognize.xml");
 
-                        //读取训练出的xml文件
-                        fr.read("FisherRecognize.xml");
-                        //设置阈值，阈值为0则任何人都不认识，阈值特别大的时候任何人都认识（返回和样本最相似的结果，永远不会返回-1）
-                        //前面忘记说了，检测返回-1代表不能和训练结果匹配
-                        fr.setThreshold(3000.0);
                     }
                 }
             }else {
@@ -88,7 +113,7 @@ public class FaceFeatureService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return RestResult.VOID_SUCCESS_RESULT;
     }
 

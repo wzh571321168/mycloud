@@ -99,6 +99,8 @@ public class MatUtils {
         Mat matImage =toMat(image);// CvType.CV_8UC3
         return matImage;
     }
+
+
     /**
      *
      * @param base64
