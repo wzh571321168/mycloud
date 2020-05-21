@@ -4,6 +4,7 @@ import org.bytedeco.javacpp.opencv_core.*;
 import org.bytedeco.javacpp.opencv_imgproc;
 import org.bytedeco.javacpp.opencv_objdetect;
 import org.opencv.imgproc.Imgproc;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -15,6 +16,8 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
 
 @Component
 public class FaceFeatureUtil {
+    @Autowired
+    private InitCV initCV;
     /**
      * 把人像图片的人脸识别并裁剪出来，保存到同目录
      * @throws Exception
@@ -32,7 +35,7 @@ public class FaceFeatureUtil {
         RectVector faces = new RectVector();
 
         //加载检测器
-        opencv_objdetect.CascadeClassifier face_cascade = new opencv_objdetect.CascadeClassifier("D:\\soft\\openCV3\\opencv\\sources\\data\\haarcascades_cuda\\haarcascade_frontalface_alt.xml");//初始化人脸检测器
+        //opencv_objdetect.CascadeClassifier face_cascade = new opencv_objdetect.CascadeClassifier("D:\\soft\\openCV3\\opencv\\sources\\data\\haarcascades_cuda\\haarcascade_frontalface_alt.xml");//初始化人脸检测器
 
         //当前帧图片进行灰度+直方均衡
        Mat videoMatGray = new Mat();
@@ -40,7 +43,7 @@ public class FaceFeatureUtil {
         opencv_imgproc.equalizeHist(videoMatGray, videoMatGray);
 
         //使用检测器进行检测，把结果放进集合中
-        face_cascade.detectMultiScale(videoMatGray, faces);
+        initCV.faceDetector.detectMultiScale(videoMatGray, faces);
 
         //把所有人脸数据绘制到图片中
        /* File imagePath = new File(path);

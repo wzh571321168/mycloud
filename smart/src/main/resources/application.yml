@@ -25,7 +25,7 @@ server:
   port: 5555
 
 file:
-  path: f://test
+  path: e://test1/
 
 logging:
   level:

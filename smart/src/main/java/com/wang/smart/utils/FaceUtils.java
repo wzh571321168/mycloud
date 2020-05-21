@@ -75,7 +75,7 @@ public class FaceUtils {
         Imgproc.cvtColor(image0, image1, Imgproc.COLOR_BGR2GRAY);
         // 探测人脸
         MatOfRect faceDetections = new MatOfRect();
-        initCV.faceDetector.detectMultiScale(image1, faceDetections);
+        //initCV.faceDetector.detectMultiScale(image1, faceDetections);
         // rect中人脸图片的范围
         for (Rect rect : faceDetections.toArray()) {
             Mat face = new Mat(image1, rect);

@@ -26,9 +26,9 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class TestLoad {
-    static {
+    /*static {
         System.load("D:\\soft\\openCV3\\opencv\\build\\java\\x64\\opencv_java345.dll");
-    }
+    }*/
     /**
      * 测试javacv
      * <p>Title: testLoadImg</p>
@@ -289,7 +289,7 @@ public class TestLoad {
     }
 
     public static void main(String[] args) {
-        try {
+        /*try {
 //			detectFace();
 //			testCamera();
 //			testFace("C:\\Users\\Administrator\\Desktop\\face\\Sat Jan 26 10-58-41.bmp");
@@ -297,6 +297,7 @@ public class TestLoad {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        }*/
+        System.out.println(Base64Utils.imageToBase64("E:\\test\\123.jpg"));
     }
 }

@@ -12,20 +12,21 @@ import org.springframework.stereotype.Service;
 public class FaceService  {
 
     public ResultCode compare(String faceA, String faceB,String imageType) {
-        if(StringUtils.equals(imageType, FaceUtils.BASE64)){
+       /* if(StringUtils.equals(imageType, FaceUtils.BASE64)){
             Double d=null;
-            /*try {
+            *//*try {
                 d=SmartUtils.compareFace(faceA,faceB);
             } catch (IOException e) {
                 log.info("The pic compare is not success!faceA:{},faceB:{}.",faceA,faceB);
-            }*/
+            }*//*
             log.info("The pic compare is success!faceA:{},faceB{},simlarity:{}.",faceA,faceB,d);
             return new ResultCode(ErrorCodes.OK,d);
         }else if(StringUtils.equals(imageType, FaceUtils.BASE64)){
 return null;
         }else {
             return ResultCode.error(ErrorCodes.DECRYPT_PARAMETERS_ERROR.getErrorNo(),"The image type "+imageType+" does not exist!");
-        }
+        }*/
+        return null;
 
     }
 

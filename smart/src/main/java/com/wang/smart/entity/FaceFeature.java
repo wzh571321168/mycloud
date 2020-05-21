@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "face_feature")
 public class FaceFeature implements Serializable {
     @Id
+    @GeneratedValue(generator="JDBC")
     private Integer id;
 
     private String name;
