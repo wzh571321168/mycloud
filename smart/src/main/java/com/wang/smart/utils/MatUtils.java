@@ -1,8 +1,9 @@
 package com.wang.smart.utils;
 
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.Rect;
+
+import org.bytedeco.javacpp.opencv_core.*;
+import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -16,7 +17,56 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.bytedeco.javacpp.opencv_core.CV_8UC3;
+
 public class MatUtils {
+    private static OpenCVFrameConverter.ToIplImage  iplConv = new OpenCVFrameConverter.ToIplImage();
+    private static OpenCVFrameConverter.ToMat       matConv = new OpenCVFrameConverter.ToMat();
+    private static Java2DFrameConverter biConv  = new Java2DFrameConverter();
+
+    /**
+     * Clones (deep copies the data) of a {@link BufferedImage}. Necessary when
+     * converting to BufferedImages from JavaCV types to avoid re-using the same
+     * memory locations.
+     *
+     * @param source
+     * @return
+     */
+    public static BufferedImage deepCopy(BufferedImage source) {
+        return Java2DFrameConverter.cloneBufferedImage(source);
+    }
+
+    public synchronized static BufferedImage toBufferedImage(IplImage src) {
+        return deepCopy(biConv.getBufferedImage(iplConv.convert(src).clone()));
+    }
+
+    public synchronized static BufferedImage toBufferedImage(Mat src) {
+        return deepCopy(biConv.getBufferedImage(matConv.convert(src).clone()));
+    }
+
+
+
+    public synchronized static IplImage toIplImage(Mat src){
+        return iplConv.convertToIplImage(matConv.convert(src)).clone();
+    }
+
+
+
+    public synchronized static IplImage toIplImage(BufferedImage src){
+        return iplConv.convertToIplImage(biConv.convert(src)).clone();
+    }
+
+    public synchronized static Mat toMat(IplImage src){
+        return matConv.convertToMat(iplConv.convert(src).clone());
+    }
+
+
+
+    public synchronized static Mat toMat(BufferedImage src){
+        return matConv.convertToMat(biConv.convert(src)).clone();
+    }
+
+
     /**
      * 路径图片转为base64
      *
@@ -27,7 +77,7 @@ public class MatUtils {
     public static Mat imagePath2Mat(String imagePath) throws IOException {
         // 注释部分模拟传入base64数据
         BufferedImage image = ImageIO.read(new FileInputStream(imagePath));
-        Mat matImage = bufImg2Mat(image, BufferedImage.TYPE_3BYTE_BGR, CvType.CV_8UC3);// CvType.CV_8UC3
+        Mat matImage = toMat(image);// CvType.CV_8UC3
         // 小型图片可以输出 查看下
 //		System.out.println(matImage.dump());
 //		mat = matImage.dump();
@@ -46,7 +96,7 @@ public class MatUtils {
         byte[] origin = decoder.decodeBuffer(base64);
         InputStream in = new ByteArrayInputStream(origin); // 将b作为输入流；
         BufferedImage image = ImageIO.read(in);
-        Mat matImage = bufImg2Mat(image, BufferedImage.TYPE_3BYTE_BGR, CvType.CV_8UC3);// CvType.CV_8UC3
+        Mat matImage =toMat(image);// CvType.CV_8UC3
         return matImage;
     }
     /**
@@ -64,7 +114,6 @@ public class MatUtils {
 
     /**
      *
-     * @param base64
      * @throws IOException
      */
     public static Rect BufferedImage2Rect(BufferedImage image) throws IOException {
@@ -89,7 +138,7 @@ public class MatUtils {
      * @param imgType  bufferedImage的类型 如 BufferedImage.TYPE_3BYTE_BGR
      * @param matType  转换成mat的type 如 CvType.CV_8UC3
      */
-    public static Mat bufImg2Mat(BufferedImage original, int imgType, int matType) {
+    /*public static Mat bufImg2Mat(BufferedImage original, int imgType, int matType) {
         if (original == null) {
             throw new IllegalArgumentException("original == null");
         }
@@ -111,10 +160,11 @@ public class MatUtils {
         }
 
         byte[] pixels = ((DataBufferByte) original.getRaster().getDataBuffer()).getData();
-        Mat mat = Mat.eye(original.getHeight(), original.getWidth(), matType);
-        mat.put(0, 0, pixels);
-        return mat;
-    }
+       // Mat mat = Mat.eye(original.getHeight(), original.getWidth(), matType);
+        Mat image = new Mat(original.getHeight(), original.getWidth(), matType);
+        image.put(0, 0, pixels);
+        return image;
+    }*/
 
     /**
      * Mat转换成BufferedImage

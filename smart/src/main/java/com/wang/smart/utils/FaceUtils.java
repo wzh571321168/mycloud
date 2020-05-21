@@ -6,23 +6,13 @@ import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class SmartUtils {
-    public static final String BASE64="BASE64";
-    public static final String URL="URL";
-    // 初始化人脸探测器
-    static CascadeClassifier faceDetector;
-
-    static CascadeClassifier eyeDetector;
-
-    static {
-
-        System.load("E:\\java\\opencv\\build\\java\\x64\\opencv_java412.dll");
-        faceDetector = new CascadeClassifier(
-                "E:\\java\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_alt.xml");
-
-        eyeDetector = new CascadeClassifier("E:\\java\\opencv\\sources\\data\\haarcascades\\haarcascade_eye.xml");
-    }
+@Component
+public class FaceUtils {
+    @Autowired
+    private InitCV initCV;
 
     /*public static double compareFace(String img1, String img2) throws IOException {
         Mat mat1 = MatUtils.base642Mat(img1);
@@ -77,15 +67,15 @@ public class SmartUtils {
         }
     }*/
     // 灰度化人脸
-    public static Mat conv_Mat(String img) {
-        Mat image0 = Imgcodecs.imread(img);
+    public  Mat conv_Mat(Mat image0) {
+        //Mat image0 = Imgcodecs.imread(img);
 
         Mat image1 = new Mat();
         // 灰度化
         Imgproc.cvtColor(image0, image1, Imgproc.COLOR_BGR2GRAY);
         // 探测人脸
         MatOfRect faceDetections = new MatOfRect();
-        faceDetector.detectMultiScale(image1, faceDetections);
+        initCV.faceDetector.detectMultiScale(image1, faceDetections);
         // rect中人脸图片的范围
         for (Rect rect : faceDetections.toArray()) {
             Mat face = new Mat(image1, rect);
@@ -94,9 +84,9 @@ public class SmartUtils {
         return null;
     }
 
-    public static double compare_image(String img_1, String img_2) {
-        Mat mat_1 = conv_Mat(img_1);
-        Mat mat_2 = conv_Mat(img_2);
+    public  double compare_image(String img_1, String img_2) {
+        Mat mat_1 = conv_Mat(Imgcodecs.imread(img_1));
+        Mat mat_2 = conv_Mat(Imgcodecs.imread(img_2));
         Mat hist_1 = new Mat();
         Mat hist_2 = new Mat();
 
@@ -113,15 +103,15 @@ public class SmartUtils {
         return res;
     }
 
-    public static void main(String[] args) {
-        /*String basePicPath = "E:/";
+    /*public static void main(String[] args) {
+        *//*String basePicPath = "E:/";
         double compareHist = compare_image(basePicPath + "111.jpg", basePicPath + "111.jpg");
         System.out.println(compareHist);
         if (compareHist > 0.72) {
             System.out.println("人脸匹配");
         } else {
             System.out.println("人脸不匹配");
-        }*/
+        }*//*
         Mat frame= null;
         try {
             frame = MatUtils.imagePath2Mat("E:\\111.png");
@@ -134,7 +124,7 @@ public class SmartUtils {
         if (rectArray.length > 0) {
             System.out.println(rectArray.length);
         }
-    }
+    }*/
 
 
 }

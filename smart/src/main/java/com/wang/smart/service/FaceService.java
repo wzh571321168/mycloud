@@ -2,7 +2,7 @@ package com.wang.smart.service;
 
 import com.wang.core.common.ErrorCodes;
 import com.wang.core.common.ResultCode;
-import com.wang.smart.utils.SmartUtils;
+import com.wang.smart.utils.FaceUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class FaceService  {
 
     public ResultCode compare(String faceA, String faceB,String imageType) {
-        if(StringUtils.equals(imageType,SmartUtils.BASE64)){
+        if(StringUtils.equals(imageType, FaceUtils.BASE64)){
             Double d=null;
             /*try {
                 d=SmartUtils.compareFace(faceA,faceB);
@@ -21,7 +21,7 @@ public class FaceService  {
             }*/
             log.info("The pic compare is success!faceA:{},faceB{},simlarity:{}.",faceA,faceB,d);
             return new ResultCode(ErrorCodes.OK,d);
-        }else if(StringUtils.equals(imageType,SmartUtils.BASE64)){
+        }else if(StringUtils.equals(imageType, FaceUtils.BASE64)){
 return null;
         }else {
             return ResultCode.error(ErrorCodes.DECRYPT_PARAMETERS_ERROR.getErrorNo(),"The image type "+imageType+" does not exist!");
