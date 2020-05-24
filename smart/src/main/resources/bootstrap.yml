@@ -3,7 +3,7 @@
 # 需要在 nacos 上建一个 ${spring.application.name}-${spring.profiles.active}.yaml 的配置
 spring:
   application: &appinfo
-    name: smart-server
+    name: smart-service
     desc:
     version: 1.0.0
   profiles:

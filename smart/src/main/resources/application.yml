@@ -21,7 +21,7 @@ mybatis:
 
 server:
   servlet:
-    context-path: /smart-server
+    context-path: /smart-service
   port: 5555
 
 file:

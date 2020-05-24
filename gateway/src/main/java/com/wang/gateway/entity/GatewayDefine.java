@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "gateway_define")
 public class GatewayDefine implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator="JDBC")
     private String id;
 
     private String uri;

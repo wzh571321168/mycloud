@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface StreamService {
     @PostMapping(value = "push",consumes = "application/json")
     RestResult push( MonitorVo monitorVo);
-    @PostMapping("pushDone")
+    @PostMapping(value = "pushDone",consumes = "application/json")
     RestResult pushDone( MonitorVo monitorVo);
 }

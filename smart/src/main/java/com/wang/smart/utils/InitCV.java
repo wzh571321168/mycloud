@@ -15,7 +15,7 @@ public class InitCV {
 
     opencv_objdetect.CascadeClassifier eyeDetector;
 
-    @PostConstruct
+    //@PostConstruct
     public void init(){
         String path=Class.class.getClass().getResource("/").getPath();
         System.load(path+"cv\\opencv_java412.dll");

@@ -12,8 +12,8 @@ public class GatewayConfig {
         return new InMemoryRouteDefinitionRepository();
     }
 
-    @Bean
+    /*@Bean
     public MysqlRouteDefinitionRepository mysqlRouteDefinitionRepository() {
         return new MysqlRouteDefinitionRepository();
-    }
+    }*/
 }

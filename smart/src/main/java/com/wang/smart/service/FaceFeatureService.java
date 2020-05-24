@@ -31,7 +31,7 @@ public class FaceFeatureService {
     @Autowired
     private FaceFeatureMapper faceFeatureMapper;
 
-    private static String path=Class.class.getClass().getResource("/").getPath().substring(1);
+    //private static String path=Class.class.getClass().getResource("/").getPath().substring(1);
     private static FaceRecognizer fr= FisherFaceRecognizer.create();
 
     /*static {

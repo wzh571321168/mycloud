@@ -15,4 +15,9 @@ spring:
       - id: smart
         uri: lb://smart-service
         predicates:
-        - Path=/smart/**
+        - Path=/smart-service/**
+      - id: analyze
+        uri: lb://analyze-client
+        predicates:
+        - Path=/analyze-client/**
+

@@ -12,7 +12,7 @@
     <result column="status" jdbcType="CHAR" property="status" />
   </resultMap>
 
-  <select id="selectByUserName" resultMap="com.wang.gateway.entity.User">
+  <select id="selectByUserName" resultType="com.wang.gateway.entity.User">
     select * from g_user where user_name=#{userName};
   </select>
 </mapper>

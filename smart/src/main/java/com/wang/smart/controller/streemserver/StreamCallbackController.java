@@ -7,10 +7,12 @@ import org.opencv.face.EigenFaceRecognizer;
 import org.opencv.face.FaceRecognizer;
 import org.opencv.face.FisherFaceRecognizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.nio.Buffer;
 import java.nio.IntBuffer;
 
@@ -22,13 +24,21 @@ import static org.bytedeco.javacpp.opencv_core.CV_32SC1;
 public class StreamCallbackController {
     @Autowired
     private RtspService rtspService;
-    @RequestMapping("on_publish")
-    public void onPublish(){
-        System.out.printf("on_publish");
+    @RequestMapping("on_connect")
+    public String on_connect(HttpServletRequest request){
+        System.out.printf("on_connect");
+        return "on_connect";
     }
-    @RequestMapping("on_publish_done")
-    public void onPublishDone(){
+    @GetMapping("on_publish")
+    public String onPublish(HttpServletRequest request){
+        System.out.printf("on_publish");
+
+        return "on_publish";
+    }
+    @GetMapping("on_publish_done")
+    public String onPublishDone(@RequestParam("uid") String uid){
         System.out.printf("on_publish_done");
+        return "on_publish_done";
     }
 
     /**
@@ -36,23 +46,28 @@ public class StreamCallbackController {
      * @param uid
      * @return
      */
-    @RequestMapping("on_play")
-    public void onPlay(@RequestParam("uid") String uid){
+    @GetMapping("on_play")
+    public String onPlay(@RequestParam("uid") String uid){
+
+        System.out.printf("on_play");
         if(StringUtils.isNoneBlank(uid)){
             rtspService.push(uid,"do");
-            EigenFaceRecognizer eigenFaceRecognizer = EigenFaceRecognizer.create();
+            //EigenFaceRecognizer eigenFaceRecognizer = EigenFaceRecognizer.create();
 
         }
+        return "on_play";
     }
 
     /**
      * 播放关闭回调
      * @param uid
      */
-    @RequestMapping("on_play_done")
-    public void onPlayDone(@RequestParam("uid") String uid){
+    @GetMapping("on_play_done")
+    public String onPlayDone(@RequestParam("uid") String uid){
+        System.out.printf("on_play_done");
         if(StringUtils.isNoneBlank(uid)){
             rtspService.push(uid,"done");
         }
+        return "on_play_done";
     }
 }
