@@ -17,7 +17,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
 
 server:
   servlet:

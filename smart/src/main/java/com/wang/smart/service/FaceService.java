@@ -1,8 +1,6 @@
 package com.wang.smart.service;
 
-import com.wang.core.common.ErrorCodes;
-import com.wang.core.common.ResultCode;
-import com.wang.smart.utils.FaceUtils;
+
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class FaceService  {
 
-    public ResultCode compare(String faceA, String faceB,String imageType) {
+    public void compare(String faceA, String faceB,String imageType) {
        /* if(StringUtils.equals(imageType, FaceUtils.BASE64)){
             Double d=null;
             *//*try {
@@ -26,12 +24,10 @@ return null;
         }else {
             return ResultCode.error(ErrorCodes.DECRYPT_PARAMETERS_ERROR.getErrorNo(),"The image type "+imageType+" does not exist!");
         }*/
-        return null;
+
 
     }
 
 
-    public ResultCode addFaceLib(String face) {
-        return null;
-    }
+
 }

@@ -1,6 +1,6 @@
 package com.wang.smart.feignservice;
 
-import com.wang.core.common.ResultCode;
+import com.wang.smart.common.RestResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("file")
 public interface FileUploadApi {
     @PostMapping("uploadFile")
-    ResultCode<String> uploadFile(@RequestPart("file") MultipartFile file);
+    RestResult<String> uploadFile(@RequestPart("file") MultipartFile file);
     @PostMapping("uploadFiles")
-    ResultCode<List<String>> uploadFiles(@RequestPart("file") MultipartFile[] files);
+    RestResult<List<String>> uploadFiles(@RequestPart("file") MultipartFile[] files);
     @PostMapping("upload")
-    ResultCode<String> upload(String file);
+    RestResult<String> upload(String file);
 }

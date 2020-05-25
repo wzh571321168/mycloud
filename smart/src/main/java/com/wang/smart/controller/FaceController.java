@@ -1,7 +1,5 @@
 package com.wang.smart.controller;
 
-import com.wang.core.common.ErrorCodes;
-import com.wang.core.common.ResultCode;
 import com.wang.smart.service.FaceService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class FaceController {
      * @param imageType 图片类型，BYSE64或URL
      * @return
      */
-    @PostMapping("/compare")
+   /* @PostMapping("/compare")
     public ResultCode compare(String faceA,String faceB,String imageType){
         if(StringUtils.isBlank(faceA)||StringUtils.isBlank(faceB)||StringUtils.isBlank(imageType)){
             return new ResultCode(ErrorCodes.PARAM_NOT_ERROR);
@@ -37,5 +35,5 @@ public class FaceController {
             return new ResultCode(ErrorCodes.PARAM_NOT_ERROR);
         }
         return faceService.addFaceLib(face);
-    }
+    }*/
 }

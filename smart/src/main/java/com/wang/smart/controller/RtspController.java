@@ -2,9 +2,9 @@ package com.wang.smart.controller;
 
 import cn.hutool.core.lang.UUID;
 import com.github.pagehelper.Page;
-import com.wang.core.common.ResultCode;
 import com.wang.smart.common.PageRequest;
 import com.wang.smart.common.RestPageInfo;
+import com.wang.smart.common.RestResult;
 import com.wang.smart.entity.RtspAddress;
 import com.wang.smart.service.RtspService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +27,20 @@ public class RtspController {
         return RestPageInfo.success(page);
     }
     @PostMapping("add")
-    public ResultCode add(RtspAddress rtspAddress){
+    public RestResult add(RtspAddress rtspAddress){
         rtspAddress.setUid(UUID.randomUUID().toString());
         rtspService.add(rtspAddress);
-        return ResultCode.success(null);
+        return RestResult.VOID_SUCCESS_RESULT;
     }
     @PostMapping("edit")
-    public ResultCode edit(RtspAddress rtspAddress){
+    public RestResult edit(RtspAddress rtspAddress){
         rtspService.edit(rtspAddress);
-        return ResultCode.success(null);
+        return RestResult.VOID_SUCCESS_RESULT;
     }
     @PostMapping("delete")
-    public ResultCode delete(Integer id){
+    public RestResult delete(Integer id){
         rtspService.delete(id);
-        return ResultCode.success(null);
+        return RestResult.VOID_SUCCESS_RESULT;
     }
 
 }

@@ -1,10 +1,9 @@
 package com.wang.smart.controller;
 
 import com.github.pagehelper.Page;
-import com.wang.core.common.ResultCode;
-import com.wang.smart.common.ErrorCode;
 import com.wang.smart.common.PageRequest;
 import com.wang.smart.common.RestPageInfo;
+import com.wang.smart.common.RestResult;
 import com.wang.smart.entity.ClientServer;
 import com.wang.smart.service.ClientServerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +29,18 @@ public class ClientServerController {
     }
 
     @PostMapping("add")
-    public ResultCode add(ClientServer clientServer){
+    public RestResult add(ClientServer clientServer){
         return clientServerService.add(clientServer);
     }
 
     @PostMapping("update")
-    public ResultCode update(ClientServer clientServer){
+    public RestResult update(ClientServer clientServer){
         return clientServerService.update(clientServer);
 
     }
 
     @PostMapping("delete")
-    public ResultCode delete(Integer id){
+    public RestResult delete(Integer id){
         return clientServerService.delete(id);
 
     }
