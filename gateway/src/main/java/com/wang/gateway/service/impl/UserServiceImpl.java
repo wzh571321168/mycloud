@@ -1,8 +1,7 @@
 package com.wang.gateway.service.impl;
 
-import com.wang.core.common.ErrorCodes;
-import com.wang.core.common.ResultCode;
 import com.wang.core.util.Md5Util;
+import com.wang.gateway.common.RestResult;
 import com.wang.gateway.dao.UserMapper;
 import com.wang.gateway.dto.UserDTO;
 import com.wang.gateway.entity.User;
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
    // private UserMapper userMapper;
 
     @Override
-    public ResultCode login(UserDTO userDTO) {
+    public RestResult login(UserDTO userDTO) {
         // 验证用户是否存在
         /*User user = userMapper.selectByUserName(userDTO.getUserName());
         if(user==null){

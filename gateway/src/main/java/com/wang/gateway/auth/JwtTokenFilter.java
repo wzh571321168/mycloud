@@ -2,7 +2,7 @@ package com.wang.gateway.auth;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wang.core.common.ResultCode;
+import com.wang.gateway.common.RestResult;
 import com.wang.gateway.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.Getter;
@@ -92,7 +92,7 @@ public class JwtTokenFilter implements GlobalFilter,Ordered {
     private Mono<Void> authErro(ServerHttpResponse resp,String mess) {
         resp.setStatusCode(HttpStatus.UNAUTHORIZED);
         resp.getHeaders().add("Content-Type","application/json;charset=UTF-8");
-        ResultCode returnData = new ResultCode(org.apache.http.HttpStatus.SC_UNAUTHORIZED, mess, mess);
+        RestResult returnData = new RestResult(org.apache.http.HttpStatus.SC_UNAUTHORIZED, mess, mess);
         String returnStr = "";
         try {
             returnStr = objectMapper.writeValueAsString(returnData);

@@ -2,7 +2,7 @@ package com.wang.gateway.aop;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.wang.core.common.ResultCode;
+import com.wang.gateway.common.RestResult;
 import com.wang.gateway.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
@@ -100,7 +100,7 @@ public class JwtCheckAop {
      * @return
      */
     private Object authErro(String mess) {
-        ResultCode returnData = new ResultCode(org.apache.http.HttpStatus.SC_UNAUTHORIZED, mess, mess);
+        RestResult returnData = new RestResult(org.apache.http.HttpStatus.SC_UNAUTHORIZED, mess, mess);
         return returnData;
     }
 

@@ -1,7 +1,7 @@
 package com.wang.gateway.service.impl;
 
-import com.wang.core.common.ErrorCodes;
-import com.wang.core.common.ResultCode;
+import com.wang.gateway.common.ErrorCode;
+import com.wang.gateway.common.RestResult;
 import com.wang.gateway.dao.GatewayDefineMapper;
 import com.wang.gateway.entity.GatewayDefine;
 import com.wang.gateway.service.GatewayDefineService;
@@ -56,7 +56,7 @@ public class GatewayDefineServiceImpl implements GatewayDefineService {
     }
 
     @Override
-    public ResultCode save(GatewayDefine gatewayDefine) {
+    public RestResult save(GatewayDefine gatewayDefine) {
         try {
             gatewayDefineMapper.insertSelective(gatewayDefine);
             RouteDefinition definition = new RouteDefinition();
@@ -72,9 +72,9 @@ public class GatewayDefineServiceImpl implements GatewayDefineService {
             }
             routeDefinitionWriter.save(Mono.just(definition)).subscribe();
             this.publisher.publishEvent(new RefreshRoutesEvent(this));
-            return ResultCode.success(null);
+            return RestResult.success(null);
         }catch (Exception e){
-            return ResultCode.error(ErrorCodes.FAILED.getErrorNo(),"fail");
+            return RestResult.error(ErrorCode.SYSTEM_ERR,"fail");
         }
     }
 

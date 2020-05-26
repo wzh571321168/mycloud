@@ -2,8 +2,8 @@ package com.wang.gateway.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.wang.core.common.ResultCode;
 import com.wang.gateway.annotation.JwtCheck;
+import com.wang.gateway.common.RestResult;
 import com.wang.gateway.dto.UserDTO;
 import com.wang.gateway.jwt.JwtModel;
 import com.wang.gateway.jwt.JwtUtil;
@@ -43,7 +43,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("/login")
-    public ResultCode login(@RequestBody UserDTO userDTO) throws Exception {
+    public RestResult login(@RequestBody UserDTO userDTO) throws Exception {
         /*ArrayList<String> roleIdList = new ArrayList<>(1);
         roleIdList.add("role_test_1");
         JwtModel jwtModel = new JwtModel("test", roleIdList);
@@ -79,8 +79,8 @@ public class AuthController {
      * 为授权提示
      */
     @GetMapping("/unauthorized")
-    public ResultCode unauthorized(){
-        return new ResultCode (HttpStatus.SC_UNAUTHORIZED,"未认证,请重新登陆",null);
+    public RestResult unauthorized(){
+        return new RestResult (HttpStatus.SC_UNAUTHORIZED,"未认证,请重新登陆",null);
     }
 
     /**
@@ -89,9 +89,9 @@ public class AuthController {
      */
     @GetMapping("/testJwtCheck")
     @JwtCheck
-    public ResultCode testJwtCheck(@RequestHeader("Authorization")String token,@RequestParam("name")@Valid String name){
+    public RestResult testJwtCheck(@RequestHeader("Authorization")String token,@RequestParam("name")@Valid String name){
 
-        return new ResultCode(HttpStatus.SC_OK,"请求成功咯","请求成功咯"+name);
+        return new RestResult(HttpStatus.SC_OK,"请求成功咯","请求成功咯"+name);
 
     }
 }

@@ -14,7 +14,7 @@ public class RequestInterceptorConfig {
             public void apply(RequestTemplate template) {
                 String str=template.bodyTemplate();
                 String url = template.url();
-                new String(template.body())
+                new String(template.body());
                 if (url.contains("$clientId")) {
                     url = url.replace("$clientId", route(template));
                     template.uri(url);
