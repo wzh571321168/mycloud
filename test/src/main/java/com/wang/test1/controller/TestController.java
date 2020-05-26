@@ -15,8 +15,8 @@ import java.util.Map;
 @RefreshScope
 public class TestController {
 
-    /*@Autowired
-    TestService testService;*/
+    @Autowired
+    TestService testService;
 
     @Value("${sleep}")
     private int sleep;
@@ -50,7 +50,7 @@ public class TestController {
         balance.setId(1);
         balance.setMessage("2432");
         balance.setTicket(4);
-        return "111111";
+        return testService.test(balance);
     }
 
 }

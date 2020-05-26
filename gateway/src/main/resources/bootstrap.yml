@@ -21,7 +21,7 @@ spring:
         predicates:
         - Path=/analyze-client/**
       - id: test
-          uri: lb://test-server
-          predicates:
-          - Path=/test-server/**
+        uri: lb://payment-service
+        predicates:
+        - Path=/test-server/**
 

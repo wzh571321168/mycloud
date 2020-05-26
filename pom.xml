@@ -21,7 +21,7 @@
         <module>./smart</module>
         <module>./gateway</module>
         <module>./core</module>
-        <module>./file</module>
+       <!-- <module>./file</module>-->
     </modules>
 
 
